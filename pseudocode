@@ -1,0 +1,28 @@
+class Pieces:
+	white = 16
+	black = 8
+	none = 0
+	king = 1
+	pawn = 2
+	knight = 3
+	bishop = 4
+	rook = 5
+	queen = 6
+	function get_white():
+		white returned
+	function get_black():
+		black returned
+	function get_none():
+		none returned
+function get_king():
+		king returned
+function get_pawn():
+		pawn returned
+function get_knight():
+		knight returned
+function get_bishop ():
+		bishop returned
+function get_rook ():
+		rook returned
+function get_queen ():
+		queen returned
