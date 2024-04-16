@@ -1,4 +1,6 @@
-class piece_identifier:
+from enum import Enum
+
+class piece_identifier(Enum):
     white = 16
     black = 8
     none = 0
@@ -9,5 +11,5 @@ class piece_identifier:
     rook = 5
     queen = 6
 
-piece_identifier.black = 0
-print(piece_identifier.black)
+print(piece_identifier['pawn'].value)
+
