@@ -1,0 +1,16 @@
+<mxfile host="app.diagrams.net" modified="2024-04-23T12:32:54.901Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0" etag="06gF925UZJxp230sUFEo" version="22.1.17" type="device">
+  <diagram name="Page-1" id="z3kV6My10lx2wvuOFXBF">
+    <mxGraphModel dx="836" dy="436" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="AUvXQAC9Xl5-1cgJsxzW-1" value="&lt;b&gt;set_board&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;Take a FEN string, parse it appropriately and set up the gameboard according to FEN notation" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;size=0.23333333333333334;" parent="1" vertex="1">
+          <mxGeometry x="190" y="30" width="320" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="AUvXQAC9Xl5-1cgJsxzW-2" value="FEN string" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="200" y="85" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
