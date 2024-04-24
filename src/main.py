@@ -11,25 +11,36 @@ class piece_identifier(Enum):
     r = 5 # rook
     q = 6 # queen
 
-#turn pieces into letters for easier conversion with FEN
-board = [piece_identifier['none'].value] * 64
+#pieces => letters for easier conversion with FEN
+    
+board = [piece_identifier['none'].value] * 64 # Initialized with the 'none' piece and set the length to 64
 
 def set_board(FEN_board: str):
-    FEN_fields = FEN_board.split(" ")
     gameboard_index = 0
-    for i in FEN_fields[0]:
-        print(i)
-        if ord(i) == 47: # a '/' in FEN must just be ignored
-            continue
-        elif ord(i) <= 57: # a number in FEN needs to jump that many spaces 
-            gameboard_index += int(i)
-        elif ord(i) <= 90: # a capital letter in FEN corresponds to a white piece
-            #board[gameboard_index] = piece_identifier[i.lower()].value |  piece_identifier['white'].value 
-            board[gameboard_index] = i
-        else: #vice versa for a black piece
-            #board[gameboard_index] = piece_identifier[i.lower()].value |  piece_identifier['black'].value
-            board[gameboard_index] = i
 
+    fen_to_string = {"k": piece_identifier["k"].value,
+                     "p": piece_identifier["p"].value,
+                     "n": piece_identifier["n"].value,
+                     "b": piece_identifier["b"].value,
+                     "r": piece_identifier["r"].value,
+                     "q": piece_identifier["q"].value,
+                     }
 
-set_board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+    try:
+        FEN_board = FEN_board.replace("/", "")
+    except:
+        raise Exception("Invalid data type")
+
+    for i in FEN_board:
+        if i.isdigit(): # Check its a digit...
+            gameboard_index += int(i)-1
+        elif i.lower() not in fen_to_string: # ... before we check whether its a letter in our dictionary
+            raise Exception("Invalid character within FEN string")
+        elif i.isupper(): #We know its in our dictionary, is it uppercase? If so then piece is white
+            board[gameboard_index] = fen_to_string[i.lower()] | piece_identifier["white"].value
+        else: # By elimination, its lowercase and therefore black
+            board[gameboard_index] = fen_to_string[i] | piece_identifier["black"].value
+        gameboard_index += 1
+
+set_board("q7/6P1/1K6/2N5/6P1/8/5P2/1k6")
 print(board)

@@ -1,0 +1,53 @@
+<mxfile host="app.diagrams.net" modified="2024-04-23T17:12:44.348Z" agent="Mozilla/5.0 (X11; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0" etag="jfe1G5dqKwbwGNPT7noK" version="24.2.7" type="device">
+  <diagram name="Page-1" id="-n-7ckIpHw2j2wGIAKaU">
+    <mxGraphModel dx="1434" dy="778" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="l8baZZN7rQ49UgMe1CoC-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="l8baZZN7rQ49UgMe1CoC-1" target="l8baZZN7rQ49UgMe1CoC-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l8baZZN7rQ49UgMe1CoC-1" value="Start" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="l8baZZN7rQ49UgMe1CoC-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="l8baZZN7rQ49UgMe1CoC-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="440" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l8baZZN7rQ49UgMe1CoC-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="l8baZZN7rQ49UgMe1CoC-2" target="l8baZZN7rQ49UgMe1CoC-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l8baZZN7rQ49UgMe1CoC-2" value="Is the data valid?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="180" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="l8baZZN7rQ49UgMe1CoC-5" value="Raise Exception" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="590" y="190" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="l8baZZN7rQ49UgMe1CoC-8" value="No" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="511" y="198" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="l8baZZN7rQ49UgMe1CoC-9" value="Yes" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="431" y="268" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="l8baZZN7rQ49UgMe1CoC-14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="l8baZZN7rQ49UgMe1CoC-12">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="440" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l8baZZN7rQ49UgMe1CoC-12" value="&lt;div&gt;Loop over every character &lt;br&gt;&lt;/div&gt;&lt;div&gt;in the input&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="320" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="l8baZZN7rQ49UgMe1CoC-17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="l8baZZN7rQ49UgMe1CoC-15" target="l8baZZN7rQ49UgMe1CoC-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l8baZZN7rQ49UgMe1CoC-15" value="&lt;div&gt;Check the piece type and its colour&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="440" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="l8baZZN7rQ49UgMe1CoC-16" value="Add the appropriate piece and colour to the appropriate spot using bitwise manipulation" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="360" y="560" width="160" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
