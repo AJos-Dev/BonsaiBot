@@ -1,0 +1,28 @@
+<mxfile host="app.diagrams.net" modified="2024-04-30T17:58:09.210Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" etag="f9UleCIfTHX45gObCUwF" version="24.3.1" type="device">
+  <diagram name="Page-1" id="RKMq_b_nqcC3T4ZzO6kq">
+    <mxGraphModel dx="1434" dy="776" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="vPPtzq15tIIypHX7wmO7-6" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="210" y="230" width="430" height="290" as="geometry" />
+        </mxCell>
+        <mxCell id="vPPtzq15tIIypHX7wmO7-1" value="" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;size=0.23255813953488372;" vertex="1" parent="vPPtzq15tIIypHX7wmO7-6">
+          <mxGeometry width="430" height="290" as="geometry" />
+        </mxCell>
+        <mxCell id="vPPtzq15tIIypHX7wmO7-2" value="Start Square" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="vPPtzq15tIIypHX7wmO7-6">
+          <mxGeometry x="10" y="110" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vPPtzq15tIIypHX7wmO7-3" value="Piece Identifier" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="vPPtzq15tIIypHX7wmO7-6">
+          <mxGeometry y="170" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vPPtzq15tIIypHX7wmO7-4" value="List of &quot;pseudo-legal&quot; moves from that piece on that square" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="vPPtzq15tIIypHX7wmO7-6">
+          <mxGeometry x="340" y="80" width="80" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="vPPtzq15tIIypHX7wmO7-5" value="Loop in the directions the sliding piece can move in and add each square to the pseudo-legal moves list until a friendly piece, opponent piece or the edge of the board is met." style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="vPPtzq15tIIypHX7wmO7-6">
+          <mxGeometry x="120" y="60" width="200" height="190" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
