@@ -42,8 +42,17 @@ def set_board(FEN_board: str):
             board[gameboard_index] = fen_to_string[i] | piece_identifier["black"].value
         gameboard_index += 1
 
-set_board("Q7/8/8/8/8/8/8/8")
-
+    #REVERSE BOARD - from 0 and 64 being TL and BR to BL and TR
+    temp_board = []
+    for i in range(0, 72, 8):
+        temp_board.append(board[i-8: i])
+    temp_board = temp_board[::-1]
+    another_temp = []
+    for rank in temp_board:
+        another_temp.extend(rank)
+    return another_temp
+board = set_board("Q7/8/8/8/8/8/8/8")
+print(board)
 #HUGE ISSUE HERE: set_board sets the pieces from bottom left to top right when FEN notation is carried out from top left to bottom right
 
 #print(board)
@@ -64,7 +73,7 @@ def squares_to_edge_count():
             squares_to_edge.append([North, South, East, West, N_W, N_E, S_W, S_E])
     return squares_to_edge
 squares_to_edge = squares_to_edge_count()
-print(squares_to_edge)
+#print(squares_to_edge)
 
 DIRECTION_OFFSETS =[8, -8, 1, -1, 7, 9, -9, -7]
 colour_to_move = 16 
