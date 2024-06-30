@@ -1,6 +1,6 @@
 from enum import Enum
 
-class piece_identifier(Enum):
+class pieceIdentifier(Enum):
     white = 16
     black = 8
     none = 0
@@ -13,17 +13,17 @@ class piece_identifier(Enum):
 
 #pieces => letters for easier conversion with FEN
     
-board = [piece_identifier['none'].value] * 64 # Initialized with the 'none' piece and set the length to 64
+board = [pieceIdentifier['none'].value] * 64 # Initialized with the 'none' piece and set the length to 64
 
-def set_board(FEN_board: str):
+def setBoard(FEN_board: str):
     gameboard_index = 0
 
-    fen_to_string = {"k": piece_identifier["k"].value,
-                     "p": piece_identifier["p"].value,
-                     "n": piece_identifier["n"].value,
-                     "b": piece_identifier["b"].value,
-                     "r": piece_identifier["r"].value,
-                     "q": piece_identifier["q"].value,
+    fen_to_string = {"k": pieceIdentifier["k"].value,
+                     "p": pieceIdentifier["p"].value,
+                     "n": pieceIdentifier["n"].value,
+                     "b": pieceIdentifier["b"].value,
+                     "r": pieceIdentifier["r"].value,
+                     "q": pieceIdentifier["q"].value,
                      }
 
     try:
@@ -37,9 +37,9 @@ def set_board(FEN_board: str):
         elif i.lower() not in fen_to_string: # ... before we check whether its a letter in our dictionary
             raise Exception("Invalid character within FEN string")
         elif i.isupper(): #We know its in our dictionary, is it uppercase? If so then piece is white
-            board[gameboard_index] = fen_to_string[i.lower()] | piece_identifier["white"].value
+            board[gameboard_index] = fen_to_string[i.lower()] | pieceIdentifier["white"].value
         else: # By elimination, its lowercase and therefore black
-            board[gameboard_index] = fen_to_string[i] | piece_identifier["black"].value
+            board[gameboard_index] = fen_to_string[i] | pieceIdentifier["black"].value
         gameboard_index += 1
 
     #REVERSE BOARD - from 0 and 64 being TL and BR to BL and TR
@@ -51,14 +51,14 @@ def set_board(FEN_board: str):
     for rank in temp_board:
         another_temp.extend(rank)
     return another_temp
-board = set_board("Q7/8/8/8/8/8/8/8")
+board = setBoard("8/N7/2Q5/8/8/8/8/8")
 print(board)
-#HUGE ISSUE HERE: set_board sets the pieces from bottom left to top right when FEN notation is carried out from top left to bottom right
+#HUGE ISSUE HERE: setBoard sets the pieces from bottom left to top right when FEN notation is carried out from top left to bottom right
 
 #print(board)
 
 #no of squares to edge
-def squares_to_edge_count():
+def squaresToEdgeCount():
     squares_to_edge = []
     for rank in range(8):
         for file in range(8):
@@ -72,14 +72,14 @@ def squares_to_edge_count():
             S_E = min(South, East)
             squares_to_edge.append([North, South, East, West, N_W, N_E, S_W, S_E])
     return squares_to_edge
-squares_to_edge = squares_to_edge_count()
+squares_to_edge = squaresToEdgeCount()
 #print(squares_to_edge)
 
 DIRECTION_OFFSETS =[8, -8, 1, -1, 7, 9, -9, -7]
-colour_to_move = 16 
+colour_to_move = 16
 moves = [] #2d array storing all possible start and end square 
 
-def generate_sliding_moves(start_square):
+def generateSlidingMoves(start_square):
     direction_offset_start = 4 if board[start_square] & 7 == 4 else 0 # More bit manipulation to check piece types
     direction_offset_end = 4 if board[start_square] & 7 == 5 else 8
     for current_direction_index in range(direction_offset_start,  direction_offset_end):#Iterate through relevant directions dictated by boundaries set above
@@ -92,12 +92,26 @@ def generate_sliding_moves(start_square):
             if board[target_square] != 0: #If the target square has passed the criteria above and is not empty, by elimination it must be of the other colour
                 break #in which case we stop iterating over this loop
 
+def generateKnightMoves(start_square):
+    knight_offsets = [15, 17, -17, -15, 10, 6, -6, -10]
+    for offset_index in range(8):
+        target_square = start_square + knight_offsets[offset_index]
+        if (target_square >=0) and (target_square <= 63) and (abs(target_square%8 - start_square%8) <= 2) and (board[target_square] & 24 != colour_to_move):    
+            moves.append([start_square, target_square])
+        else:
+            continue
+
+
+        
 def generate_moves():
     for start_square in range(len(board)):
         start_square_piece = board[start_square]
         if start_square_piece & 24 == colour_to_move: #Check its the correct colour
             if start_square_piece & 4 == 4: # Check whether its a sliding piece
-                generate_sliding_moves(start_square)
+                generateSlidingMoves(start_square)
+            elif start_square_piece & 3 == 3:#Check whether its a knight
+                generateKnightMoves(start_square)
+
 generate_moves()
 print(moves)
 #ALL CURRENT CONVENTION IS IF PLAYER IS PLAYING WHITE (BLACK ON THE OTHER END)
