@@ -101,8 +101,25 @@ def generateKnightMoves(start_square):
         else:
             continue
 
+def generatePawnMoves(start_square):
+        pawn_offsets = [16, 8, 9, 7, -16, -8, -7, -9]
+        if (board[start_square] // 8 == 1) and (colour_to_move == 16):
+            pawn_offset_start = 0
+            pawn_offset_end = 4
+        elif (board[start_square] // 8 != 1) and (colour_to_move == 16):
+            pawn_offset_start = 1
+            pawn_offset_end = 4
+        elif (board[start_square] // 8 == 6) and (colour_to_move == 8):
+            pawn_offset_start = 4
+            pawn_offset_end = 8
+        elif (board[start_square] // 8 != 1) and (colour_to_move == 8):
+            pawn_offset_start = 5
+            pawn_offset_end = 8
+        for pawn_offset_index in range(pawn_offset_start, pawn_offset_end):
+            target_square = start_square + pawn_offsets[pawn_offset_index]
+            if board[target_square] & 24 == colour_to_move:
+                
 
-        
 def generate_moves():
     for start_square in range(len(board)):
         start_square_piece = board[start_square]
