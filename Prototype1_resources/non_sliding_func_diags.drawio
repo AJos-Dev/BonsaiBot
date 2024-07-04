@@ -1,0 +1,64 @@
+<mxfile host="app.diagrams.net" modified="2024-07-02T17:16:34.176Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="lZrpoafqwS6vi4W7Eok2" version="24.6.4" type="device">
+  <diagram name="Page-1" id="YcVPBSij1acQYrf4jiu3">
+    <mxGraphModel dx="1434" dy="776" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="SeyCDsUhjkhK53nO1TKJ-11" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="218" y="40" width="415" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="SeyCDsUhjkhK53nO1TKJ-1" value="" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;size=0.2216867469879518;" vertex="1" parent="SeyCDsUhjkhK53nO1TKJ-11">
+          <mxGeometry width="415" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="SeyCDsUhjkhK53nO1TKJ-2" value="Start Square" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="SeyCDsUhjkhK53nO1TKJ-11">
+          <mxGeometry x="12" y="70" width="70" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="SeyCDsUhjkhK53nO1TKJ-3" value="Loop in the appropriate directions for the knight and check whether the square is available, If it is, record a move, if it isn&#39;t, ignore and move on to the next direction. If a move is recorded, check whether it makes sense i.e. can&#39;t have a move on square 66 because it doesn&#39;t exist on the chess board." style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="SeyCDsUhjkhK53nO1TKJ-11">
+          <mxGeometry x="107.5" y="10" width="200" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="SeyCDsUhjkhK53nO1TKJ-4" value="Append move to the moves list if valid" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="SeyCDsUhjkhK53nO1TKJ-11">
+          <mxGeometry x="332" y="75" width="80" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="SeyCDsUhjkhK53nO1TKJ-12" value="Knight" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="395.5" y="10" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="SeyCDsUhjkhK53nO1TKJ-13" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="218" y="250" width="415" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="SeyCDsUhjkhK53nO1TKJ-5" value="" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;size=0.2216867469879518;" vertex="1" parent="SeyCDsUhjkhK53nO1TKJ-13">
+          <mxGeometry width="415" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="SeyCDsUhjkhK53nO1TKJ-6" value="Start Square" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="SeyCDsUhjkhK53nO1TKJ-13">
+          <mxGeometry x="12" y="60" width="70" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="SeyCDsUhjkhK53nO1TKJ-8" value="Append move to the moves list&amp;nbsp;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="SeyCDsUhjkhK53nO1TKJ-13">
+          <mxGeometry x="332" y="67.5" width="80" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="SeyCDsUhjkhK53nO1TKJ-10" value="Check the colour of the piece, if the colour is white then check the 3 squares above the pawn for a valid move, otherwise check the 3 squares below the pawn for a valid move." style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="SeyCDsUhjkhK53nO1TKJ-13">
+          <mxGeometry x="107.5" y="5" width="200" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="SeyCDsUhjkhK53nO1TKJ-14" value="Pawns" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="395" y="220" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="SeyCDsUhjkhK53nO1TKJ-15" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="218" y="460" width="415" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="SeyCDsUhjkhK53nO1TKJ-16" value="" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;size=0.2216867469879518;" vertex="1" parent="SeyCDsUhjkhK53nO1TKJ-15">
+          <mxGeometry width="415" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="SeyCDsUhjkhK53nO1TKJ-17" value="Start Square" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="SeyCDsUhjkhK53nO1TKJ-15">
+          <mxGeometry x="12" y="60" width="70" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="SeyCDsUhjkhK53nO1TKJ-18" value="Append move to the moves list&amp;nbsp;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="SeyCDsUhjkhK53nO1TKJ-15">
+          <mxGeometry x="332" y="67.5" width="80" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="SeyCDsUhjkhK53nO1TKJ-19" value="Check every square in DIRECTION_OFFSETS for a legal move because the King moves in every direction as the Queen but is limited to just one square, therefore cannot slide." style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="SeyCDsUhjkhK53nO1TKJ-15">
+          <mxGeometry x="107.5" y="5" width="200" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="SeyCDsUhjkhK53nO1TKJ-20" value="King" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="SeyCDsUhjkhK53nO1TKJ-15">
+          <mxGeometry x="177" y="-25" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
