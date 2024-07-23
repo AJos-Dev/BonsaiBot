@@ -51,10 +51,7 @@ def setBoard(FEN_board: str):
     for rank in temp_board:
         another_temp.extend(rank)
     return another_temp
-board = setBoard("8/N7/8/8/8/8/8/8")
-
-#HUGE ISSUE HERE: setBoard sets the pieces from bottom left to top right when FEN notation is carried out from top left to bottom right
-
+board = setBoard("8/8/8/2k5/4K3/8/8/8")
 #print(board)
 
 #no of squares to edge
@@ -77,7 +74,7 @@ squares_to_edge = squaresToEdgeCount()
 
 DIRECTION_OFFSETS =[8, -8, 1, -1, 7, 9, -9, -7]
 colour_to_move = 16
-moves = [] #2d array storing all possible start and end square 
+moves = [] #2d array storing all possible start and end squares
 
 def generateSlidingMoves(start_square):
     direction_offset_start = 4 if board[start_square] & 7 == 4 else 0 # More bit manipulation to check piece types
@@ -86,7 +83,7 @@ def generateSlidingMoves(start_square):
         # Iterate over every square in that direction where the target square is i times the offset (e.g. from square 0 in the N direction, we add multiples of 8)
         for i in range(1, squares_to_edge[start_square][current_direction_index]+1): 
             target_square = start_square + i* DIRECTION_OFFSETS[current_direction_index]
-            if board[target_square] &            24 == colour_to_move: # If target square is a friendly...
+            if board[target_square] & 24 == colour_to_move: # If target square is a friendly...
                 break #...leave loop immedietly
             moves.append([start_square, target_square]) #As we continue onwards, we know it can be added to the list of moves
             if board[target_square] != 0: #If the target square has passed the criteria above and is not empty, by elimination it must be of the other colour
@@ -104,35 +101,45 @@ def generateKnightMoves(start_square):
             moves.append([start_square, target_square])
         else:
             continue
-'''
+
 def generatePawnMoves(start_square):
-        pawn_offsets = [16, 8, 9, 7, -16, -8, -7, -9]
-        if (board[start_square] // 8 == 1) and (colour_to_move == 16):
-            pawn_offset_start = 0
-            pawn_offset_end = 4
-        elif (board[start_square] // 8 != 1) and (colour_to_move == 16):
-            pawn_offset_start = 1
-            pawn_offset_end = 4
-        elif (board[start_square] // 8 == 6) and (colour_to_move == 8):
-            pawn_offset_start = 4
-            pawn_offset_end = 8
-        elif (board[start_square] // 8 != 1) and (colour_to_move == 8):
-            pawn_offset_start = 5
-            pawn_offset_end = 8
+        pawn_offsets = [16, 8, 9, 7] #Negatives for black
+        power = 0 if colour_to_move == 16 else 1 # Power exists for negative values for black later
+        pawn_offset_start = 0 if ((start_square//8 == 1 and power == 0) or (start_square// 8 == 6 and power == 1)) else 1 # offset 16 exists for double pawn push
+        pawn_offset_end = 4
         for pawn_offset_index in range(pawn_offset_start, pawn_offset_end):
-            target_square = start_square + pawn_offsets[pawn_offset_index]
-            if board[target_square] & 24 == colour_to_move:
-                
-'''
+            target_square = start_square + (-1)**power * pawn_offsets[pawn_offset_index]
+            if (target_square >=0) and (target_square <= 63) and (abs(target_square%8 - start_square%8) <= 1):
+                if pawn_offsets[pawn_offset_index] %2 == 1 and board[target_square] & 24 != colour_to_move and board[target_square] != 0:
+                    moves.append([start_square, target_square])#Tackle pawn promotions later when updating piece on board
+                elif pawn_offsets[pawn_offset_index] %2 == 0 and board[target_square] == 0:
+                    moves.append([start_square, target_square])
+            else:
+                continue
+
+def generateKingMoves(start_square):
+    opposing_colour = 8 if colour_to_move == 16 else 16
+    opposing_king_square = board.index(opposing_colour+1)
+    for direction_offset in DIRECTION_OFFSETS:
+        target_square = start_square + direction_offset
+        if (target_square >=0) and (target_square <= 63) and (abs(target_square%8 - start_square%8) <= 1) and (board[target_square] & 24 != colour_to_move) and ((opposing_king_square-target_square) not in DIRECTION_OFFSETS):
+            #Last condition checks for a king within another block in that direction for the opponent's king, if there is one, the if condition is not met
+            moves.append([start_square, target_square])
+        else:
+            continue
+
 def generate_moves():
     for start_square in range(len(board)):
         start_square_piece = board[start_square]
         if start_square_piece & 24 == colour_to_move: #Check its the correct colour
             if start_square_piece & 4 == 4: # Check whether its a sliding piece
                 generateSlidingMoves(start_square)
-            elif start_square_piece & 3 == 3:#Check whether its a knight
+            elif start_square_piece & 7 == 3:#Check whether its a knight
                 generateKnightMoves(start_square)
-
+            elif start_square_piece & 7 == 1: # Check if its a king
+                generateKingMoves(start_square)
+            else:
+                generatePawnMoves(start_square)
 generate_moves()
-print(moves)
+print(moves)    
 #ALL CURRENT CONVENTION IS IF PLAYER IS PLAYING WHITE (BLACK ON THE OTHER END)  
