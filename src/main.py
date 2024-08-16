@@ -51,7 +51,7 @@ def setBoard(FEN_board: str):
     for rank in temp_board:
         another_temp.extend(rank)
     return another_temp
-board = setBoard("8/8/8/pP6/8/8/8/8")
+board = setBoard("8/8/8/8/8/8/4p3/3P4")
 #print(board)
 
 #no of squares to edge
@@ -73,10 +73,13 @@ squares_to_edge = squaresToEdgeCount()
 #print(squares_to_edge)
 
 DIRECTION_OFFSETS =[8, -8, 1, -1, 7, 9, -9, -7]
-colour_to_move = 16
-moves = [] #2d array storing all possible start and end squares
-moves_log = [[40, 32]]
-def generateSlidingMoves(start_square):
+#TEMP GAME STATE VARIABLES
+colour_to_move = 8
+moves_log = [[0, 8]]
+castling_rights = 15 #4 bits, first 2 bits for white for castling rights q and k in that order, second 2 bits for black. 0 = no castling, 1 = castling allowed
+
+#moves = [] #2d array storing all possible start and end squares
+def generateSlidingMoves(start_square, colour_to_move, moves):
     direction_offset_start = 4 if board[start_square] & 7 == 4 else 0 # More bit manipulation to check piece types
     direction_offset_end = 4 if board[start_square] & 7 == 5 else 8
     for current_direction_index in range(direction_offset_start,  direction_offset_end):#Iterate through relevant directions dictated by boundaries set above
@@ -89,7 +92,7 @@ def generateSlidingMoves(start_square):
             if board[target_square] != 0: #If the target square has passed the criteria above and is not empty, by elimination it must be of the other colour
                 break #in which case we stop iterating over this loop
 
-def generateKnightMoves(start_square):
+def generateKnightMoves(start_square, colour_to_move, moves):
     knight_offsets = [15, 17, -17, -15, 10, 6, -6, -10] # Knight movement offsets
     for offset_index in range(8): #iterate over every directional offset
         target_square = start_square + knight_offsets[offset_index]
@@ -102,7 +105,7 @@ def generateKnightMoves(start_square):
         else:
             continue
 
-def generatePawnMoves(start_square): #NEEDS OPTIMISING 
+def generatePawnMoves(start_square, colour_to_move, moves, moves_log): #NEEDS OPTIMISING 
     pawn_offsets = [16, 8, 9, 7] #Negatives for black
     power = 0 if colour_to_move == 16 else 1 # Power exists for negative values for black later
     pawn_offset_start = 0 if ((start_square//8 == 1 and power == 0) or (start_square// 8 == 6 and power == 1)) else 1 # offset 16 exists for double pawn push
@@ -113,23 +116,78 @@ def generatePawnMoves(start_square): #NEEDS OPTIMISING
         if (target_square >=0) and (target_square <= 63) and (abs(target_square%8 - start_square%8) <= 1): # check if target is a valid square
             if pawn_offsets[pawn_offset_index] %2 == 1 and board[target_square] & 24 != colour_to_move and board[target_square] != 0: #If we're checking diagonally, the target is of opposite colour and isn't empty
                 valid = True
-            elif pawn_offsets[pawn_offset_index] %2 == 1 and abs(moves_log[-1][0] - moves_log[-1][1]) == 16 and board[moves_log[-1][1]] & 7 == 2 and (moves_log[-1][1] // 8 == start_square//8) and board[moves_log[-1][1]] &24 != colour_to_move and squares_to_edge[target_square][2] == squares_to_edge[moves_log[-1][1]][2]: 
-                # Checking for En passant diagonally, the last move must've been a *double* *pawn* push and the target square must be on the same file as the last move
-                valid = True
             elif pawn_offsets[pawn_offset_index] %2 == 0 and board[target_square] == 0: # Checking if target ahead is empty
                 valid = True
-            if valid and target_square // 8 == 7:
+            elif (pawn_offsets[pawn_offset_index] %2 == 1 # Checking for En passant diagonally
+                    and abs(moves_log[-1][0] - moves_log[-1][1]) == 16 #Last move must've been a double push
+                    and board[moves_log[-1][1]] & 7 == 2 #The double push was a pawn
+                    and board[moves_log[-1][1]] &24 != colour_to_move #The pushed pawn is of the opposite colour (shouldn't be necessary)
+                    and target_square == moves_log[-1][1] + 8 * (-1)**power): #The target square is the square behind the pushed pawn
+                valid = True
+            if valid and ((target_square // 8 == 7 and colour_to_move == 16) or (target_square // 8 == 0 and colour_to_move == 8)):
                 #Promotions are recorded with a 3rd value in moves which is the identity of the new piece
                 moves.append([start_square, target_square, colour_to_move | pieceIdentifier["q"].value])
                 moves.append([start_square, target_square, colour_to_move | pieceIdentifier["r"].value])
                 moves.append([start_square, target_square, colour_to_move | pieceIdentifier["n"].value])
-            elif valid and target_square//8 != 7: moves.append([start_square, target_square])
+                moves.append([start_square, target_square, colour_to_move | pieceIdentifier["b"].value])
+            elif valid: moves.append([start_square, target_square])
             valid = False 
         else:
             continue
-def generateKingMoves(start_square):
+def generateKingMoves(start_square, colour_to_move, moves, moves_log, castling_rights):
     opposing_colour = 8 if colour_to_move == 16 else 16
     opposing_king_square = board.index(opposing_colour+1)
+    #CASTLING
+    #Check castling rights first
+    if colour_to_move == 16 and castling_rights & 12 > 0:
+        #first need to check whether castling is still allowed
+        for i in moves_log:
+            if (4 in i):
+                castling_rights = castling_rights & 3 #White loses castling rights because white king has moved
+            if (0 in i):
+                castling_rights  = castling_rights & 7#white loses queen side castling rights
+            if (7 in i):
+                castling_rights = castling_rights & 11#white loses king side castling rights
+    elif colour_to_move == 8 and castling_rights & 3 > 0:
+        for i in moves_log:
+            if (60 in i):
+                castling_rights = castling_rights & 12 #black loses castling rights because black king has moved
+            if (56 in i):
+                castling_rights  = castling_rights & 13#black loses queen side castling rights 
+            if (63 in i):
+                castling_rights = castling_rights & 14#black loses king side castling rights
+    #Now that castling rights are updated, we should check if castling is allowed given the current gameboard
+    #requires an "under attack" function...
+    #check for castling in game by looking for king moving 2 squares, if so then rook must move too (target square - start sqaure, if +ve then k, else q)
+    if colour_to_move ==16 and castling_rights &12 >0 and not underAttack(16, 4, moves_log):
+        if (castling_rights & 8 == 8 
+            and not underAttack(16, 3, moves_log)
+            and not underAttack(16, 2, moves_log)
+            and board[3] == 0
+            and board[2] == 0
+            and board[1] == 0):
+            moves.append([start_square, 2])
+        if (castling_rights & 4 == 4 
+            and not underAttack(16, 5, moves_log)
+            and not underAttack(16, 6, moves_log)
+            and board[5] == 0
+            and board[6] == 0):
+            moves.append([start_square, 6])
+    elif colour_to_move == 8 and castling_rights &3 >0 and not underAttack(8, 60, moves_log):
+        if (castling_rights &2 == 2 
+            and not underAttack(8, 59, moves_log) 
+            and not underAttack(8, 58, moves_log)
+            and board[59] == 0
+            and board[58] == 0
+            and board[57] == 0):
+            moves.append([start_square, 58])
+        if (castling_rights & 1 == 1 
+            and not underAttack(8, 61, moves_log) 
+            and not underAttack(8, 62 ,moves_log)
+            and board[61] == 0
+            and board[62] == 0):
+            moves.append([start_square, 62])
+    #check non-castling moves
     for direction_offset in DIRECTION_OFFSETS:
         target_square = start_square + direction_offset
         if (target_square >=0) and (target_square <= 63) and (abs(target_square%8 - start_square%8) <= 1) and (board[target_square] & 24 != colour_to_move) and ((opposing_king_square-target_square) not in DIRECTION_OFFSETS):
@@ -138,19 +196,29 @@ def generateKingMoves(start_square):
         else:
             continue
 
-def generate_moves():
+def underAttack(colour_to_move, start_square, moves_log):
+    other_colour = colour_to_move^24
+    new_moves = []
+    new_moves = generate_moves(other_colour, 0, moves_log)#we don't want to generate castling moves or we may end up in a recursive loop 
+    for move in new_moves:
+        if start_square in move:
+            return True
+    return False
+
+def generate_moves(colour_to_move, castling_rights, moves_log):
+    moves=[]
     for start_square in range(len(board)):
         start_square_piece = board[start_square]
         if start_square_piece & 24 == colour_to_move: #Check its the correct colour
             if start_square_piece & 4 == 4: # Check whether its a sliding piece
-                generateSlidingMoves(start_square)
+                generateSlidingMoves(start_square,colour_to_move, moves)
             elif start_square_piece & 7 == 3:#Check whether its a knight
-                generateKnightMoves(start_square)
+                generateKnightMoves(start_square, colour_to_move, moves)
             elif start_square_piece & 7 == 1: # Check if its a king
-                generateKingMoves(start_square)
+                generateKingMoves(start_square, colour_to_move, moves, moves_log, castling_rights)
             else:
-                generatePawnMoves(start_square)
-generate_moves()
-
-print(moves)
+                generatePawnMoves(start_square, colour_to_move, moves, moves_log)
+    return moves
+print(generate_moves(colour_to_move, castling_rights, moves_log))
 #ALL CURRENT CONVENTION IS IF PLAYER IS PLAYING WHITE (BLACK ON THE OTHER END)  
+#castling is recorded as [king square, k/q] depending on where castle occurs.
