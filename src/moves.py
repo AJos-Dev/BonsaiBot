@@ -51,7 +51,7 @@ def setBoard(FEN_board: str):
     for rank in temp_board:
         another_temp.extend(rank)
     return another_temp
-board = setBoard("8/8/8/8/8/8/4p3/3P4")
+board = setBoard("r3kb1r/pp1q1ppp/n2P4/2p2b2/1B2p1n1/1PN2N2/P1PP1PPP/R1BQ1RK1")
 #print(board)
 
 #no of squares to edge
@@ -74,8 +74,8 @@ squares_to_edge = squaresToEdgeCount()
 
 DIRECTION_OFFSETS =[8, -8, 1, -1, 7, 9, -9, -7]
 #TEMP GAME STATE VARIABLES
-colour_to_move = 8
-moves_log = [[0, 8]]
+colour_to_move = 8 #8 for black, 16 for white
+moves_log = [[36+16, 36]]
 castling_rights = 15 #4 bits, first 2 bits for white for castling rights q and k in that order, second 2 bits for black. 0 = no castling, 1 = castling allowed
 
 #moves = [] #2d array storing all possible start and end squares
@@ -210,12 +210,12 @@ def generate_moves(colour_to_move, castling_rights, moves_log):
     for start_square in range(len(board)):
         start_square_piece = board[start_square]
         if start_square_piece & 24 == colour_to_move: #Check its the correct colour
-            if start_square_piece & 4 == 4: # Check whether its a sliding piece
+            if start_square_piece & 7 == 1: # Check if its a king
+                generateKingMoves(start_square, colour_to_move, moves, moves_log, castling_rights)
+            elif start_square_piece & 4 == 4: # Check whether its a sliding piece
                 generateSlidingMoves(start_square,colour_to_move, moves)
             elif start_square_piece & 7 == 3:#Check whether its a knight
                 generateKnightMoves(start_square, colour_to_move, moves)
-            elif start_square_piece & 7 == 1: # Check if its a king
-                generateKingMoves(start_square, colour_to_move, moves, moves_log, castling_rights)
             else:
                 generatePawnMoves(start_square, colour_to_move, moves, moves_log)
     return moves
