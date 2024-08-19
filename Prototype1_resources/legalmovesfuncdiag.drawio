@@ -1,0 +1,34 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36" version="24.7.7">
+  <diagram name="Page-1" id="89i3vRM-HGb4R6QdsNe3">
+    <mxGraphModel dx="1434" dy="776" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="XDLrUFYaFEmXSxQsjXr6-1" value="" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;size=0.23508771929824562;" vertex="1" parent="1">
+          <mxGeometry x="283" y="280" width="285" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="XDLrUFYaFEmXSxQsjXr6-2" value="generateLegalMoves" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="395.5" y="250" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="XDLrUFYaFEmXSxQsjXr6-3" value="colour to move" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="283" y="300" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="XDLrUFYaFEmXSxQsjXr6-4" value="castling rights&lt;span style=&quot;color: rgba(0, 0, 0, 0); font-family: monospace; font-size: 0px; text-align: start; text-wrap: nowrap;&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20value%3D%22colour%20to%20move%22%20style%3D%22text%3Bhtml%3D1%3Balign%3Dcenter%3BverticalAlign%3Dmiddle%3BwhiteSpace%3Dwrap%3Brounded%3D0%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22283%22%20y%3D%22300%22%20width%3D%2260%22%20height%3D%2230%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;&lt;span style=&quot;color: rgba(0, 0, 0, 0); font-family: monospace; font-size: 0px; text-align: start; text-wrap: nowrap;&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20value%3D%22colour%20to%20move%22%20style%3D%22text%3Bhtml%3D1%3Balign%3Dcenter%3BverticalAlign%3Dmiddle%3BwhiteSpace%3Dwrap%3Brounded%3D0%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22283%22%20y%3D%22300%22%20width%3D%2260%22%20height%3D%2230%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="283" y="330" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="XDLrUFYaFEmXSxQsjXr6-5" value="moves log" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="283" y="360" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="XDLrUFYaFEmXSxQsjXr6-6" value="board" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="283" y="390" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="XDLrUFYaFEmXSxQsjXr6-7" value="Checks if the King is in check and generates pseudo-legal moves, if in check, a list of check-blocking moves is returned&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;If not in check, the previously generated list is returned&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="350.5" y="317.5" width="150" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="XDLrUFYaFEmXSxQsjXr6-8" value="moves to block check if in check&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Otherwise pseudo-legal moves&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="500.5" y="340" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
