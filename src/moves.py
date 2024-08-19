@@ -237,9 +237,4 @@ castling_rights = 15 #4 bits, first 2 bits for white for castling rights q and k
 board = setBoard("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR")
 
 print(generateLegalMoves(colour_to_move, castling_rights, moves_log, board))
-#print(generatePseudoLegalMoves(colour_to_move, castling_rights, moves_log))
-#ALL CURRENT CONVENTION IS IF PLAYER IS PLAYING WHITE (BLACK ON THE OTHER END)
 #castling is recorded as [king square, k/q] depending on where castle occurs.
-
-#checking for King will be done by pretending we are a different piece (e.g. rook), moving
-#places as those pieces and check whether that piece exists in the valid piece generation
