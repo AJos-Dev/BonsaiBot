@@ -1,0 +1,22 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36" version="24.7.7">
+  <diagram name="Page-1" id="qrsgysyqc15hWkjx9vYj">
+    <mxGraphModel dx="1434" dy="776" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="xw8J9QxQR_konTTELLDG-1" value="" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;size=0.23214285714285715;" vertex="1" parent="1">
+          <mxGeometry x="285" y="220" width="280" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="xw8J9QxQR_konTTELLDG-2" value="board" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="290" y="290" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="xw8J9QxQR_konTTELLDG-3" value="Iterate over the board, add pieces of the correct colour in the correct spots on the screen" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="378" y="275" width="95" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="xw8J9QxQR_konTTELLDG-4" value="setPieces" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="395.5" y="190" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
