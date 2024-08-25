@@ -234,9 +234,9 @@ def generateLegalMoves(colour_to_move: int, castling_rights: int, moves_log: lis
 #colour_to_move = 8 for black, 16 for white
 #castling_rights = 4 bits, first 2 bits for white for castling rights q and k in that order, second 2 bits for black. 0 = no castling, 1 = castling allowed
 #castling is recorded as [king square, k/q] depending on where castle occurs.
-board = [pieceIdentifier["none"].value] * 64
-board= setBoard("8/4k3/2r5/8/8/8/4R3/3K4", board)
-print(generateLegalMoves(8, 0, [], board ))
+#board = [pieceIdentifier["none"].value] * 64
+#board= setBoard("8/4k3/2r5/8/8/8/4R3/3K4", board)
+#print(generateLegalMoves(8, 0, [], board ))
 
 #issue with pinned pieces, as king isn't under attack, the moves which cause king to be exposed are appended anyway
 #must do the check on every piece
