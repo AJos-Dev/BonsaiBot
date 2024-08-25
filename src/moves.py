@@ -15,7 +15,7 @@ class pieceIdentifier(Enum):
     
 #board = [pieceIdentifier['none'].value] * 64 # Initialized with the 'none' piece and set the length to 64
 
-def setBoard(FEN_board: str, board:str):
+def setBoard(FEN_board: str, board:list):
     gameboard_index = 0
 
     fen_to_string = {"k": pieceIdentifier["k"].value,
@@ -215,22 +215,28 @@ def generatePseudoLegalMoves(colour_to_move: int, castling_rights: int, moves_lo
 
 def generateLegalMoves(colour_to_move: int, castling_rights: int, moves_log: list, board: list) -> list:
     all_moves = generatePseudoLegalMoves(colour_to_move, castling_rights, moves_log, board)
-    if underAttack(colour_to_move, board.index(colour_to_move+1), moves_log, board):
-        moves_to_stop_check = []
-        for move in all_moves:
-            moves_log_copy= moves_log[:]
-            board_copy= board[:]
-            board_copy[move[1]] = board_copy[move[0]]
-            board_copy[move[0]] = 0
-            king_square = board_copy.index(colour_to_move+1)
-            moves_log_copy.append(move)
-            if not underAttack(colour_to_move, king_square, moves_log_copy, board_copy):
-                moves_to_stop_check.append(move)
-        return moves_to_stop_check
-    else:
-        return all_moves
+    #if underAttack(colour_to_move, board.index(colour_to_move+1), moves_log, board):
+    moves_to_stop_check = []
+    for move in all_moves:
+        moves_log_copy= moves_log[:]
+        board_copy= board[:]
+        board_copy[move[1]] = board_copy[move[0]]
+        board_copy[move[0]] = 0
+        king_square = board_copy.index(colour_to_move+1)
+        moves_log_copy.append(move)
+        if not underAttack(colour_to_move, king_square, moves_log_copy, board_copy):
+            moves_to_stop_check.append(move)
+    return moves_to_stop_check
+    #else:
+        #return all_moves
 
 #TEMP GAME STATE VARIABLES
 #colour_to_move = 8 for black, 16 for white
 #castling_rights = 4 bits, first 2 bits for white for castling rights q and k in that order, second 2 bits for black. 0 = no castling, 1 = castling allowed
 #castling is recorded as [king square, k/q] depending on where castle occurs.
+board = [pieceIdentifier["none"].value] * 64
+board= setBoard("8/4k3/2r5/8/8/8/4R3/3K4", board)
+print(generateLegalMoves(8, 0, [], board ))
+
+#issue with pinned pieces, as king isn't under attack, the moves which cause king to be exposed are appended anyway
+#must do the check on every piece
