@@ -68,6 +68,7 @@ def setPieces(board):
             piece = Piece(square_index, board)
             pieces_group.add(piece)
 
+
 def main():
     moves_log=[]
     colour_to_play = 8
@@ -75,7 +76,6 @@ def main():
     board = [moves.pieceIdentifier["none"].value] * 64
     board = moves.setBoard("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR", board)
     current_legal_moves= moves.generateLegalMoves(colour_to_play, castling_rights, moves_log, board)
-    print(current_legal_moves)
 
     selected_piece = None
     screen = pygame.display.set_mode((1024, 768))
@@ -135,5 +135,3 @@ OFFSET = (256, 128)
 
 position_lookup = positionLookup(white_perspective)
 main()
-
-#Pinned pieces no workey :( :()
