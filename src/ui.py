@@ -68,10 +68,9 @@ def setPieces(board):
             piece = Piece(square_index, board)
             pieces_group.add(piece)
 
-
 def main():
     moves_log=[]
-    colour_to_play = 8
+    colour_to_play = 16
     castling_rights = 15
     board = [moves.pieceIdentifier["none"].value] * 64
     board = moves.setBoard("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR", board)
@@ -83,6 +82,7 @@ def main():
     chessboard_surf = createBoard()
     drag = False
     setPieces(board)
+    red_squares=[]
     while True:
         events = pygame.event.get()
         for event in events:
@@ -95,14 +95,37 @@ def main():
                         old_square = selected_piece.getSquare()
                         drag = True
             elif drag:
+                for move in current_legal_moves:
+                    if move[0] == selected_piece.getSquare():
+                        red_squares.append(move[1])
                 mouse_x, mouse_y = event.pos
                 mouse_x -= 25
                 mouse_y -= 32
                 mouse_pos = mouse_x, mouse_y
                 selected_piece.setPosition(mouse_pos)
                 if event.type == pygame.MOUSEBUTTONUP:
+                    red_squares = []
                     move_to_play = [selected_piece.getSquare(), squareUnderMouse(white_perspective)[1]* 8 + squareUnderMouse(white_perspective)[0]]
                     if move_to_play in current_legal_moves:
+                        #check whether the piece just moved was a king
+                        if selected_piece.getPieceIdentifier()&7 == moves.pieceIdentifier["k"].value:
+                            #if it is a king, did it move 2 squares (was it a castle)?
+                            if move_to_play[1]-move_to_play[0] == 2: #was it a kingside castle?
+                                for piece in pieces_group:
+                                    if piece.getSquare() == move_to_play[1] + 1:
+                                        board[move_to_play[1]+1] = moves.pieceIdentifier["none"].value
+                                        board[move_to_play[1]-1] = piece.getPieceIdentifier()
+                                        piece.setPosition(position_lookup[move_to_play[1]-1])
+                                        piece.setSquare(move_to_play[1]-1)
+                                        moves_log.append([move_to_play[1]+1, move_to_play[1]-1])
+                            elif move_to_play[1]-move_to_play[0] == -2: #was it a queenside castle?
+                                for piece in pieces_group:
+                                    if piece.getSquare() == move_to_play[1] - 2:
+                                        board[move_to_play[1]-2] = moves.pieceIdentifier["none"].value
+                                        board[move_to_play[1]+1] = piece.getPieceIdentifier()
+                                        piece.setPosition(position_lookup[move_to_play[1]+1])
+                                        piece.setSquare(move_to_play[1]+1)
+                                        moves_log.append([move_to_play[1]-2, move_to_play[1]+1])
                         for piece in pieces_group:
                             if piece.getSquare() == move_to_play[1]:
                                 pieces_group.remove(piece)
@@ -122,14 +145,14 @@ def main():
         screen.fill(pygame.Color('black'))
         screen.blit(chessboard_surf, OFFSET)
         pieces_group.draw(screen)
+        for square in red_squares:
+            pygame.draw.circle(screen, (255, 0, 0), (position_lookup[square][0] + 25, position_lookup[square][1]+27), 5)
         pygame.display.flip()
         clock.tick(60)
 
-
 pieces_group=pygame.sprite.Group()
 
-
-white_perspective = False
+white_perspective = True
 TILESIZE = 64
 OFFSET = (256, 128)
 
