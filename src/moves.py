@@ -103,6 +103,8 @@ def generatePawnMoves(start_square: int, colour_to_move: int, moves: list, moves
     pawn_offset_end = 4
     valid = False
     for pawn_offset_index in range(pawn_offset_start, pawn_offset_end):
+        if pawn_offsets[pawn_offset_index] == 16 and board[start_square + (-1)**power * 8] != 0:
+            continue
         target_square = start_square + (-1)**power * pawn_offsets[pawn_offset_index]
         if (target_square >=0) and (target_square <= 63) and (abs(target_square%8 - start_square%8) <= 1): # check if target is a valid square
             if pawn_offsets[pawn_offset_index] %2 == 1 and board[target_square] & 24 != colour_to_move and board[target_square] != 0: #If we're checking diagonally, the target is of opposite colour and isn't empty

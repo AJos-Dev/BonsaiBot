@@ -195,7 +195,7 @@ def main():
 
 pieces_group=pygame.sprite.Group()
 
-white_perspective = False
+white_perspective = True
 TILESIZE = 64
 OFFSET = (256, 128)
 
