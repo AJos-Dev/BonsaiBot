@@ -1,0 +1,40 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" version="24.8.6">
+  <diagram name="Page-1" id="EvJqvBWahlpB4yBeH_my">
+    <mxGraphModel dx="1834" dy="780" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Gy_URl5EGqzfCPEifrpk-5" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="-30" y="200" width="320" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="Gy_URl5EGqzfCPEifrpk-1" value="Iterate over squares on the board and count the material for the colour specified by adding the values for each piece" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;size=0.25;" vertex="1" parent="Gy_URl5EGqzfCPEifrpk-5">
+          <mxGeometry y="30" width="320" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="Gy_URl5EGqzfCPEifrpk-2" value="countMaterial()" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="Gy_URl5EGqzfCPEifrpk-5">
+          <mxGeometry x="110" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Gy_URl5EGqzfCPEifrpk-3" value="board&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;colour&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="Gy_URl5EGqzfCPEifrpk-5">
+          <mxGeometry x="10" y="85" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Gy_URl5EGqzfCPEifrpk-4" value="Material (variable holding the material count)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="Gy_URl5EGqzfCPEifrpk-5">
+          <mxGeometry x="250" y="90" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Gy_URl5EGqzfCPEifrpk-6" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="-30" y="400" width="320" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="Gy_URl5EGqzfCPEifrpk-7" value="Calls countMaterial for each colour given the same gameboard and takes the value of white away from black. If the color given is black then the score is multiplied by -1 to ensure positive is always good for the colour specified" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;size=0.25;" vertex="1" parent="Gy_URl5EGqzfCPEifrpk-6">
+          <mxGeometry y="30" width="320" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="Gy_URl5EGqzfCPEifrpk-8" value="Evaluate()" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="Gy_URl5EGqzfCPEifrpk-6">
+          <mxGeometry x="120" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Gy_URl5EGqzfCPEifrpk-9" value="board&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;colour&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="Gy_URl5EGqzfCPEifrpk-6">
+          <mxGeometry x="10" y="85" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Gy_URl5EGqzfCPEifrpk-10" value="evaluation (variable holding the value of the subtraction)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="Gy_URl5EGqzfCPEifrpk-6">
+          <mxGeometry x="250" y="90" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,6 +1,8 @@
 import pygame
 import moves
 import random
+import engine
+
 pygame.init()
 class Piece(pygame.sprite.Sprite):
     def __init__(self, square, board):
@@ -114,6 +116,29 @@ def main():
             r_button.draw(screen)
             b_button.draw(screen)
             buttons_list = [q_button, n_button, r_button, b_button]
+        if colour_to_play == 8:
+            move_to_play = engine.Search(3, board, colour_to_play, moves_log, castling_rights)
+            for piece in pieces_group:
+                if piece.getSquare() == move_to_play[0]:
+                    selected_piece = piece
+                elif piece.getSquare() == move_to_play[1]:
+                    pieces_group.remove(piece)
+            #REPETITION 1
+            selected_piece.setPosition(position_lookup[move_to_play[1]])
+            selected_piece.setSquare(move_to_play[1])
+            board[move_to_play[1]] = board[move_to_play[0]]
+            board[move_to_play[0]] = moves.pieceIdentifier["none"].value
+            moves_log.append(move_to_play)
+            colour_to_play ^= 24
+            current_legal_moves = moves.generateLegalMoves(colour_to_play, castling_rights, moves_log, board)
+            if len(current_legal_moves) == 0: #No moves to play indicates a checkmate or stalemate
+                king_square = board.index(colour_to_play+1)
+                if moves.underAttack(colour_to_play, king_square, moves_log, board):
+                    print("Checkmate", colour_to_play^24, "wins!")
+                else:
+                    print("Stalemate!")
+                exit()
+            #ENDS HERE
         for event in events:
             if event.type == pygame.QUIT:
                 return
@@ -142,8 +167,6 @@ def main():
                 if event.type == pygame.MOUSEBUTTONUP:
                     red_squares = []
                     move_to_play = [selected_piece.getSquare(), squareUnderMouse(white_perspective)[1]* 8 + squareUnderMouse(white_perspective)[0]]
-
-                    #problem is currently when pawns promote to the final rank, the game registers that as [old square, new square] but they are stored in current legal moves as [old square, new square, new piece]
                     if move_to_play in [i[:2] for i in current_legal_moves]:
                         for move in current_legal_moves:
                             if len(move) == 3 and move[:2] == move_to_play:
@@ -173,6 +196,7 @@ def main():
                             if piece.getSquare() == move_to_play[1]:
                                 pieces_group.remove(piece)
                         #update position on the board with the new move the pieces
+                        #TURN INTO FUNCTION
                         selected_piece.setPosition(position_lookup[move_to_play[1]])
                         selected_piece.setSquare(move_to_play[1])
                         board[move_to_play[1]] = board[move_to_play[0]]
@@ -180,9 +204,14 @@ def main():
                         moves_log.append(move_to_play) #add move to move log
                         colour_to_play ^= 24 #alternate between colours to play
                         current_legal_moves = moves.generateLegalMoves(colour_to_play, castling_rights, moves_log, board)
-                        if len(current_legal_moves) == 0: #No moves to play indicates a checkmate
-                            print("Checkmate", colour_to_play^24, "wins!")
+                        if len(current_legal_moves) == 0: #No moves to play indicates a checkmate or stalemate
+                            king_square = board.index(colour_to_play+1)
+                            if moves.underAttack(colour_to_play, king_square, moves_log, board):
+                                print("Checkmate", colour_to_play^24, "wins!")
+                            else:
+                                print("Stalemate!")
                             exit()
+                        #TURN INTO FUNCTION ENDS HERE
                     else:   
                         selected_piece.setPosition(position_lookup[old_square])
                     drag = False
