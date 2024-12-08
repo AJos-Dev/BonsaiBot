@@ -29,6 +29,10 @@ def Evaluate(board, colour):
     evaluation = whiteEval - blackEval
     return perspective * evaluation
 
+board = [moves.pieceIdentifier["none"].value] * 64
+board= moves.setBoard("3rk3/1Pr5/P7/8/5p2/5Pp1/2R1B2p/3K1N2", board)
+print(Evaluate(board, 8))
+
 def Search(depth, board, colour_to_move, moves_log, castling_rights):
     if depth == 3:
         evaluated_moves = []

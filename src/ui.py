@@ -116,7 +116,7 @@ def main():
             r_button.draw(screen)
             b_button.draw(screen)
             buttons_list = [q_button, n_button, r_button, b_button]
-        if colour_to_play == 8:
+        elif colour_to_play == 8:
             move_to_play = engine.Search(3, board, colour_to_play, moves_log, castling_rights)
             for piece in pieces_group:
                 if piece.getSquare() == move_to_play[0]:
