@@ -93,6 +93,7 @@ def main():
     castling_rights = 15
     board = [moves.pieceIdentifier["none"].value] * 64
     board = moves.setBoard("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR", board)
+    #board = moves.setBoard("4k3/8/5qP1/8/8/3Q4/6p1/2K5", board)
     current_legal_moves= moves.generateLegalMoves(colour_to_play, castling_rights, moves_log, board)
 
     selected_piece = None
@@ -116,21 +117,49 @@ def main():
             r_button.draw(screen)
             b_button.draw(screen)
             buttons_list = [q_button, n_button, r_button, b_button]
+        #ENGINE MOVE HANDLER
         elif colour_to_play == 8:
-            move_to_play = engine.Search(3, board, colour_to_play, moves_log, castling_rights)
+            move_to_play = engine.Search(4, board, colour_to_play, moves_log, castling_rights)
+            #Castling on screen handler
+            if selected_piece.getPieceIdentifier()&7 == moves.pieceIdentifier["k"].value:
+                #if it is a king, did it move 2 squares (was it a castle)?
+                if move_to_play[1]-move_to_play[0] == 2: #was it a kingside castle?
+                    for piece in pieces_group:
+                        if piece.getSquare() == move_to_play[1] + 1:#move the rook to its correct place
+                            board[move_to_play[1]+1] = moves.pieceIdentifier["none"].value
+                            board[move_to_play[1]-1] = piece.getPieceIdentifier()
+                            piece.setPosition(position_lookup[move_to_play[1]-1])
+                            piece.setSquare(move_to_play[1]-1)
+                            moves_log.append([move_to_play[1]+1, move_to_play[1]-1])
+                elif move_to_play[1]-move_to_play[0] == -2: #was it a queenside castle?
+                    for piece in pieces_group:
+                        if piece.getSquare() == move_to_play[1] - 2:
+                            board[move_to_play[1]-2] = moves.pieceIdentifier["none"].value
+                            board[move_to_play[1]+1] = piece.getPieceIdentifier()
+                            piece.setPosition(position_lookup[move_to_play[1]+1])
+                            piece.setSquare(move_to_play[1]+1)
+                            moves_log.append([move_to_play[1]-2, move_to_play[1]+1])
+            #Takes handler
             for piece in pieces_group:
                 if piece.getSquare() == move_to_play[0]:
                     selected_piece = piece
                 elif piece.getSquare() == move_to_play[1]:
                     pieces_group.remove(piece)
-            #REPETITION 1
+            #On screen moves handler
             selected_piece.setPosition(position_lookup[move_to_play[1]])
             selected_piece.setSquare(move_to_play[1])
-            board[move_to_play[1]] = board[move_to_play[0]]
+            #Promotions handler
+            if len(move_to_play) == 3:
+                board[move_to_play[1]] = move_to_play[2]
+                selected_piece.setPieceIdentifier(move_to_play[2])
+            else:
+                board[move_to_play[1]] = board[move_to_play[0]]
             board[move_to_play[0]] = moves.pieceIdentifier["none"].value
             moves_log.append(move_to_play)
+            #Setup for next players move
             colour_to_play ^= 24
             current_legal_moves = moves.generateLegalMoves(colour_to_play, castling_rights, moves_log, board)
+            #Mates/stalemate checker
             if len(current_legal_moves) == 0: #No moves to play indicates a checkmate or stalemate
                 king_square = board.index(colour_to_play+1)
                 if moves.underAttack(colour_to_play, king_square, moves_log, board):
@@ -169,7 +198,7 @@ def main():
                     move_to_play = [selected_piece.getSquare(), squareUnderMouse(white_perspective)[1]* 8 + squareUnderMouse(white_perspective)[0]]
                     if move_to_play in [i[:2] for i in current_legal_moves]:
                         for move in current_legal_moves:
-                            if len(move) == 3 and move[:2] == move_to_play:
+                            if len(move) == 3 and move[:2] == move_to_play: #checking for a pawn promotion
                                 pawnPromotionMenu = True
                                 break
                         #check whether the piece just moved was a king
@@ -177,7 +206,7 @@ def main():
                             #if it is a king, did it move 2 squares (was it a castle)?
                             if move_to_play[1]-move_to_play[0] == 2: #was it a kingside castle?
                                 for piece in pieces_group:
-                                    if piece.getSquare() == move_to_play[1] + 1:
+                                    if piece.getSquare() == move_to_play[1] + 1:#move the rook to its correct place
                                         board[move_to_play[1]+1] = moves.pieceIdentifier["none"].value
                                         board[move_to_play[1]-1] = piece.getPieceIdentifier()
                                         piece.setPosition(position_lookup[move_to_play[1]-1])

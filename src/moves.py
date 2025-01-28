@@ -232,6 +232,9 @@ def generateLegalMoves(colour_to_move: int, castling_rights: int, moves_log: lis
     #else:
         #return all_moves
 
+def randomBookOpenings():
+    book_openings = {1: [[11, 27], [51, 35], [10, 26], [35, 26]]}#Queen's gambit accepted
+
 #TEMP GAME STATE VARIABLES
 #colour_to_move = 8 for black, 16 for white
 #castling_rights = 4 bits, first 2 bits for white for castling rights q and k in that order, second 2 bits for black. 0 = no castling, 1 = castling allowed
