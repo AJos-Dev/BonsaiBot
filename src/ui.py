@@ -119,7 +119,7 @@ def main():
             buttons_list = [q_button, n_button, r_button, b_button]
         #ENGINE MOVE HANDLER
         elif colour_to_play == 8:
-            move_to_play = engine.Search(4, board, colour_to_play, moves_log, castling_rights)
+            move_to_play = engine.Search(3, board, colour_to_play, moves_log, castling_rights)
             #Castling on screen handler
             if selected_piece.getPieceIdentifier()&7 == moves.pieceIdentifier["k"].value:
                 #if it is a king, did it move 2 squares (was it a castle)?

@@ -4,7 +4,7 @@ knightValue = 300
 bishopValue = 300
 rookValue = 500
 queenValue = 900
-max_depth = 4
+max_depth = 3
 
 def countMaterial(board, colour):
     material = 0
